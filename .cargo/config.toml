@@ -1,0 +1,7 @@
+[target.'cfg(target_os = "none")']
+rustflags = [
+    "-C", "link-arg=-Tkernel.ld",
+]
+
+[build]
+target = "riscv32imac-unknown-none-elf"
