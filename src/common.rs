@@ -79,3 +79,15 @@ pub fn printf(fmt: &[u8], args: &[Arg]) {
         i += 1;
     }
 }
+
+#[macro_export]
+macro_rules! PANIC {
+    ($msg:expr) => {{
+        $crate::common::printf(b"PANIC: %s\n", &[ $crate::common::Arg::Str($msg) ]);
+        loop {
+            unsafe {
+                asm!("wfi");
+            }
+        }
+    }};
+}

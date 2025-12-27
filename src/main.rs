@@ -20,6 +20,8 @@ pub extern "C" fn kernel_main() {
     let random_hex: u32 = 0xDEADBEEF;
     common::printf(fmt, &[common::Arg::Str(name), common::Arg::Int(version), common::Arg::UInt(random_hex)]);
 
+    PANIC!(b"Kernel panic occurred!");
+
     loop {
         unsafe {
             asm!("wfi");
