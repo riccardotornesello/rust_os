@@ -1,5 +1,3 @@
-use core::arch::asm;
-
 pub struct SbiRet {
     pub error: usize,
     pub value: usize,
@@ -19,7 +17,7 @@ pub fn sbi_call(
     let mut value;
 
     unsafe {
-        asm!(
+        core::arch::asm!(
             "ecall",
             inlateout("a0") arg0 => error,
             inlateout("a1") arg1 => value,

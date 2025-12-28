@@ -3,7 +3,6 @@ use crate::sbi;
 pub enum Arg<'a> {
     Int(i32),
     UInt(u32),
-    Char(char),
     Str(&'a [u8]),
 }
 
@@ -83,10 +82,10 @@ pub fn printf(fmt: &[u8], args: &[Arg]) {
 #[macro_export]
 macro_rules! PANIC {
     ($msg:expr) => {{
-        $crate::common::printf(b"PANIC: %s\n", &[ $crate::common::Arg::Str($msg) ]);
+        $crate::common::printf(b"PANIC: %s\n", &[$crate::common::Arg::Str($msg)]);
         loop {
             unsafe {
-                asm!("wfi");
+                core::arch::asm!("wfi");
             }
         }
     }};
